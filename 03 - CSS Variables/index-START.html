@@ -22,17 +22,26 @@
 
   <style>
 
-    /*
-      misc styles, nothing to do with CSS variables
-    */
+    :root {
+      --base: #ffc600;
+      --spacing: 20px;
+      --blur: 2px;
+    }
 
-    body {
-      text-align: center;
+    img {
+      padding: var(--spacing);
+      background-color: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .hl {
+      color: var(--base);
     }
 
     body {
       background: #193549;
       color: white;
+      text-align: center;
       font-family: 'helvetica neue', sans-serif;
       font-weight: 100;
       font-size: 50px;
@@ -46,8 +55,20 @@
       width:100px;
     }
   </style>
-
   <script>
+    var inputs = document.querySelectorAll('.controls input');
+    
+    function updateHandle() {
+      var suffix = this.dataset.sizing || '';
+      document.documentElement.style.setProperty('--' + this.name, this.value + suffix);
+    }
+
+    Array.prototype.forEach.call(inputs, function(input) {
+      input.addEventListener('change', updateHandle);
+      input.addEventListener('mousemove', updateHandle);
+    });
+
+
   </script>
 
 </body>
